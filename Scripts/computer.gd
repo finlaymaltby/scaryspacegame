@@ -72,9 +72,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.key_label == KEY_ENTER:
 			buffer += "\n"
-		if event.key_label == KEY_SPACE:
-			buffer += " "
-		if event.unicode >= "A".unicode_at(0) and event.unicode <= "z".unicode_at(0):
+
+		if (event.unicode >= "A".unicode_at(0) and event.unicode <= "z".unicode_at(0)) or event.unicode == " ".unicode_at(0):
 			buffer += String.chr(event.unicode)
 
 		
