@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://c5fge4ytyc0wg"]
+[gd_scene load_steps=9 format=4 uid="uid://c5fge4ytyc0wg"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_mls6w"]
 [ext_resource type="PackedScene" uid="uid://dvlo1l1hfact3" path="res://Scenes/player.tscn" id="2_h4wyf"]
+[ext_resource type="PackedScene" uid="uid://cql3oaw6eshoh" path="res://Scenes/computer.tscn" id="3_0tpdl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a36gr"]
 resource_name = "Wall"
@@ -87,3 +88,6 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="space_ship"]
 shape = SubResource("ConcavePolygonShape3D_0ngtk")
+
+[node name="Computer" parent="." instance=ExtResource("3_0tpdl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30229, 1.03757, 4.06083)
