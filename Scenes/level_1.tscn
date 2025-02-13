@@ -1,17 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5fge4ytyc0wg"]
+[gd_scene load_steps=8 format=3 uid="uid://c5fge4ytyc0wg"]
 
-[ext_resource type="Script" path="res://Scripts/level.gd" id="1_mls6w"]
+[ext_resource type="PackedScene" uid="uid://hrn3gyn4p06f" path="res://Assets/Models/space_ship.glb" id="1_c3n6w"]
 [ext_resource type="PackedScene" uid="uid://dvlo1l1hfact3" path="res://Scenes/player.tscn" id="2_h4wyf"]
 [ext_resource type="PackedScene" uid="uid://cql3oaw6eshoh" path="res://Scenes/computer.tscn" id="3_0tpdl"]
-[ext_resource type="PackedScene" uid="uid://hrn3gyn4p06f" path="res://Assets/Models/space_ship.glb" id="4_oqr12"]
+[ext_resource type="Texture2D" uid="uid://crah53flcep1s" path="res://Assets/Textures/8k_stars_milky_way.jpg" id="4_out12"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3ibpr"]
+panorama = ExtResource("4_out12")
+
+[sub_resource type="Sky" id="Sky_qxtg8"]
+sky_material = SubResource("PanoramaSkyMaterial_3ibpr")
+
+[sub_resource type="Environment" id="Environment_x5ykl"]
+background_mode = 2
+sky = SubResource("Sky_qxtg8")
+ambient_light_source = 3
 
 [node name="Level1" type="Node3D"]
-script = ExtResource("1_mls6w")
+
+[node name="space_ship" parent="." instance=ExtResource("1_c3n6w")]
 
 [node name="Player" parent="." instance=ExtResource("2_h4wyf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.73079, 1.08077, 1.39074)
+transform = Transform3D(1, 0, 0.000436332, 0, 1, 0, -0.000436332, 0, 1, -7.73079, 1.08077, 6.24441)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_x5ykl")
 
 [node name="Computer" parent="." instance=ExtResource("3_0tpdl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30229, 1.03757, 4.06083)
-
-[node name="space_ship" parent="." instance=ExtResource("4_oqr12")]
+transform = Transform3D(0.999816, -0.01918, 0, 0.01918, 0.999816, 0, 0, 0, 1, -6.16705, 1, 4.16546)

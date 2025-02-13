@@ -1,5 +1,8 @@
 extends StaticBody3D
 
+# unicode character for backspace
+const BACKSPACE: int = 8
+
 @onready var in_zone: bool = false
 
 @onready var is_active: bool = false:
@@ -21,7 +24,7 @@ extends StaticBody3D
 		else:
 			turn_off()
 		is_on = value
-		
+
 @onready var buffer: String = ""
 
 
@@ -36,22 +39,23 @@ func exit() -> void:
 	set_process(false)
 	
 func turn_on() -> void:
-	$ScreenText.text = "Begin:\n"
+	$Screen/Text.text = "Begin:\n"
 	buffer = ""
 	
 func turn_off() -> void:
-	$ScreenText.text = ""
+	$Screen/Text.text = ""
 	buffer = ""
 
 func _process(delta: float) -> void:
 	if in_zone and Input.is_action_just_released("interact"):
 		is_active = true
-	if Input.is_action_just_released("left_click"):
-		is_on = not is_on
 		
 	if len(buffer) > 0:
-		$ScreenText.text += buffer[0]
-		buffer = buffer.substr(1)
+		if buffer.unicode_at(0) == BACKSPACE:
+			$Screen/Text.text = $Screen/Text.text.left(-1)
+		else:
+			$Screen/Text.text += buffer[0]
+		buffer = buffer.right(-1)
 
 
 func _physics_process(delta: float) -> void:
@@ -67,7 +71,7 @@ func _input(event: InputEvent) -> void:
 	if not is_active:
 		return
 		
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		is_on = not is_on
 		
 	if not is_on:
@@ -76,8 +80,12 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.key_label == KEY_ENTER:
 			buffer += "\n"
+			
+		elif event.key_label == KEY_SPACE:
+			buffer += " "
+			
+		elif event.key_label == KEY_BACKSPACE:
+			buffer += char(8) # code for backspace
 
-		if (event.unicode >= "A".unicode_at(0) and event.unicode <= "z".unicode_at(0)) or event.unicode == " ".unicode_at(0):
-			buffer += String.chr(event.unicode)
-
-		
+		elif event.key_label >= KEY_A and event.key_label <= KEY_Z:
+			buffer += OS.get_keycode_string(event.key_label)

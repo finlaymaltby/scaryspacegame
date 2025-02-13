@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cql3oaw6eshoh"]
+[gd_scene load_steps=7 format=3 uid="uid://cql3oaw6eshoh"]
 
 [ext_resource type="Script" path="res://Scripts/computer.gd" id="1_ugg3d"]
+[ext_resource type="FontFile" uid="uid://cfn24qwlas52m" path="res://Assets/Fonts/CourierPrime-Regular.ttf" id="2_qtdmj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2kkks"]
 size = Vector3(1, 2, 1)
@@ -9,7 +10,10 @@ size = Vector3(1, 2, 1)
 size = Vector3(1, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vis3i"]
-size = Vector3(1.26722, 1, 1.503)
+size = Vector3(1.267, 1, 1.1695)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_aw4xh"]
+viewport_path = NodePath("Screen")
 
 [node name="Computer" type="StaticBody3D"]
 script = ExtResource("1_ugg3d")
@@ -20,16 +24,44 @@ shape = SubResource("BoxShape3D_2kkks")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_7obou")
 
-[node name="ScreenText" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.729463, 0.51)
-font_size = 10
-autowrap_mode = 3
-width = 150.0
-
 [node name="Zone" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="ZoneShape" type="CollisionShape3D" parent="Zone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0153253, 0, 1.09923)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0153253, 0, 1.05336)
 shape = SubResource("BoxShape3D_vis3i")
+
+[node name="Screen" type="SubViewport" parent="."]
+size = Vector2i(256, 256)
+
+[node name="ColorRect" type="ColorRect" parent="Screen"]
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(0, 0.384314, 0, 1)
+
+[node name="Text" type="RichTextLabel" parent="Screen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.996078, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_qtdmj")
+theme_override_font_sizes/normal_font_size = 20
+text = "HI HI "
+scroll_active = false
+scroll_following = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.542705, 0.515945)
+pixel_size = 0.003
+texture = SubResource("ViewportTexture_aw4xh")
