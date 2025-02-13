@@ -1,5 +1,7 @@
 extends StaticBody3D
 
+@onready var in_zone: bool = false
+
 @onready var is_active: bool = false:
 	set(value):
 		if value == is_active:
@@ -42,6 +44,8 @@ func turn_off() -> void:
 	buffer = ""
 
 func _process(delta: float) -> void:
+	if in_zone and Input.is_action_just_released("interact"):
+		is_active = true
 	if Input.is_action_just_released("left_click"):
 		is_on = not is_on
 		
@@ -54,10 +58,10 @@ func _physics_process(delta: float) -> void:
 	if len($Zone.get_overlapping_bodies()) > 0:
 		var player: ThePlayer = $Zone.get_overlapping_bodies()[0]
 		if (global_position - player.global_position).dot(-player.global_basis.z) > 0:
-			is_active = true
+			in_zone = true
 			return
 	
-	is_active = false
+	in_zone = false
 
 func _input(event: InputEvent) -> void:
 	if not is_active:

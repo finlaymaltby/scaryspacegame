@@ -33,7 +33,9 @@ func _input(event: InputEvent):
 	var mouse := event as InputEventMouseMotion
 	if not mouse:
 		return
-	mouse.relative
 	rotate_y(deg_to_rad(-mouse.relative.x * Globals.MOUSE_SENSITIVITY))
 	$Cam.rotate_x(deg_to_rad(-mouse.relative.y * Globals.MOUSE_SENSITIVITY))
+	 
+	$Cam.rotation_degrees.x = clampf($Cam.rotation_degrees.x, -70, 70)
+	
 	
