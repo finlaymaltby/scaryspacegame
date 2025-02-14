@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvlo1l1hfact3"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_8w8sq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqcud"]
+radius = 0.3
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 3
+script = ExtResource("1_8w8sq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00312686, 0.00573653, -0.000212908)
+shape = SubResource("CapsuleShape3D_gqcud")
+
+[node name="Cam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0410979, 0.632052, -0.173024)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0425425, 0.988773, -0.0996314)
+light_energy = 0.1
+omni_range = 18.4331
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FPS" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0

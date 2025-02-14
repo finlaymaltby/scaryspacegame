@@ -5,6 +5,8 @@ class_name ThePlayer
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+func _process(delta: float) -> void:
+	$CanvasLayer/FPS.text = str(round(1/delta*10)/10)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

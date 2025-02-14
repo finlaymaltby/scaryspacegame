@@ -1,11 +1,10 @@
+
 extends StaticBody3D
 
 # unicode character for backspace
 const BACKSPACE: int = 8
 
-@onready var in_zone: bool = false
-
-@onready var is_active: bool = false:
+var is_active: bool = true:
 	set(value):
 		if value == is_active:
 			return
@@ -15,7 +14,7 @@ const BACKSPACE: int = 8
 			exit()
 		is_active = value
 
-@onready var is_on: bool = false:
+var is_on: bool = true:
 	set(value):
 		if value == is_on:
 			return
@@ -25,38 +24,53 @@ const BACKSPACE: int = 8
 			turn_off()
 		is_on = value
 
+@onready var in_zone: bool = false
 @onready var buffer: String = ""
+@onready var screen: RichTextLabel = $ScreenView/Text
 
+
+@export_color_no_alpha var BG_COLOR: Color
+
+func _ready() -> void:
+	is_active = false
+	is_on = false
 
 # When the player is close enough to interact
 func enter() -> void:
 	Globals.WASD_ENABLED = false
-	set_process(true)
-
 # When the player leaves interaction zone
 func exit() -> void:
 	Globals.WASD_ENABLED = true
-	set_process(false)
 	
 func turn_on() -> void:
-	$Screen/Text.text = "Begin:\n"
+	screen.text = "Begin:\n"
 	buffer = ""
+	$ScreenView/Background.color = BG_COLOR
 	
 func turn_off() -> void:
-	$Screen/Text.text = ""
+	screen.text = ""
 	buffer = ""
+	$ScreenView/Background.color = Color.BLACK
 
 func _process(delta: float) -> void:
 	if in_zone and Input.is_action_just_released("interact"):
 		is_active = true
+	
+	if is_on:
+		update_screen()
+		
+	if not is_active:
+		return
 		
 	if len(buffer) > 0:
 		if buffer.unicode_at(0) == BACKSPACE:
-			$Screen/Text.text = $Screen/Text.text.left(-1)
+			if screen.text.right(1) != "\n":
+				screen.text = screen.text.left(-1)
 		else:
-			$Screen/Text.text += buffer[0]
+			screen.text += buffer[0]
 		buffer = buffer.right(-1)
-
+	
+	
 
 func _physics_process(delta: float) -> void:
 	if len($Zone.get_overlapping_bodies()) > 0:
@@ -64,17 +78,17 @@ func _physics_process(delta: float) -> void:
 		if (global_position - player.global_position).dot(-player.global_basis.z) > 0:
 			in_zone = true
 			return
-	
 	in_zone = false
+	is_active = false
 
 func _input(event: InputEvent) -> void:
-	if not is_active:
+	if not in_zone:
 		return
 		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		is_on = not is_on
 		
-	if not is_on:
+	if not is_on or not is_active:
 		return
 		
 	if event is InputEventKey and event.pressed:
@@ -89,3 +103,8 @@ func _input(event: InputEvent) -> void:
 
 		elif event.key_label >= KEY_A and event.key_label <= KEY_Z:
 			buffer += OS.get_keycode_string(event.key_label)
+
+func update_screen() -> void:
+	var mesh: ArrayMesh = $ComputerMesh.mesh
+	var mat: StandardMaterial3D = mesh.surface_get_material(2)
+	mat.emission_texture = $ScreenView.get_texture()
