@@ -23,17 +23,16 @@ var is_on: bool = true:
 		else:
 			turn_off()
 		is_on = value
-
-@onready var in_zone: bool = false
+		
 @onready var buffer: String = ""
 @onready var screen: RichTextLabel = $ScreenView/Text
 
 
-@export_color_no_alpha var BG_COLOR: Color
 
 func _ready() -> void:
 	is_active = false
 	is_on = false
+	update_screen()
 
 # When the player is close enough to interact
 func enter() -> void:
@@ -45,7 +44,7 @@ func exit() -> void:
 func turn_on() -> void:
 	screen.text = "Begin:\n"
 	buffer = ""
-	$ScreenView/Background.color = BG_COLOR
+	$ScreenView/Background.color = Color(0,1.0/255.0,0)
 	
 func turn_off() -> void:
 	screen.text = ""
@@ -53,8 +52,10 @@ func turn_off() -> void:
 	$ScreenView/Background.color = Color.BLACK
 
 func _process(delta: float) -> void:
-	if in_zone and Input.is_action_just_released("interact"):
+	if $Zone.in_zone and Input.is_action_just_released("interact"):
 		is_active = true
+	elif not $Zone.in_zone:
+		is_active = false
 	
 	if is_on:
 		update_screen()
@@ -72,17 +73,8 @@ func _process(delta: float) -> void:
 	
 	
 
-func _physics_process(delta: float) -> void:
-	if len($Zone.get_overlapping_bodies()) > 0:
-		var player: ThePlayer = $Zone.get_overlapping_bodies()[0]
-		if (global_position - player.global_position).dot(-player.global_basis.z) > 0:
-			in_zone = true
-			return
-	in_zone = false
-	is_active = false
-
 func _input(event: InputEvent) -> void:
-	if not in_zone:
+	if not $Zone.in_zone:
 		return
 		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():

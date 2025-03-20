@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0g6qkysvften"]
+
+[ext_resource type="Material" uid="uid://biuov3acyjp48" path="res://Resources/Materials/dark_wall.tres" id="1_wcopu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m2y0j"]
+material = ExtResource("1_wcopu")
+size = Vector3(5, 5, 5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_m2y0j")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.10933, 0, -2.17805)
+light_color = Color(0.192157, 0.603922, 1, 1)

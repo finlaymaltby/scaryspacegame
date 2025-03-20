@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://16oa0i0lwrv8"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/fabric.gdshader" id="1_18wtw"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3u2tg"]
+frequency = 0.1349
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_py2ih"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_3u2tg")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_18wtw")
+shader_parameter/base_color = Vector3(0.2, 0.3, 0.4)
+shader_parameter/uv_scale = 2.0
+shader_parameter/noise = SubResource("NoiseTexture2D_py2ih")

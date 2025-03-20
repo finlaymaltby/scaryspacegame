@@ -1,0 +1,63 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://8a8ar1q5j1a7"
+path="res://.godot/imported/ship.glb-30c6c9a8924bb3f38918a02f3a8efdf0.scn"
+
+[deps]
+
+source_file="res://Assets/Models/ship.glb"
+dest_files=["res://.godot/imported/ship.glb-30c6c9a8924bb3f38918a02f3a8efdf0.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"materials": {
+"DarkMetal": {
+"use_external/enabled": true,
+"use_external/path": "res://Resources/Materials/dark_metal.tres"
+},
+"DarkPlastic": {
+"use_external/enabled": true,
+"use_external/path": "res://Resources/Materials/black_plastic.tres"
+},
+"DarkWall": {
+"use_external/enabled": true,
+"use_external/path": "res://Resources/Materials/dark_wall.tres"
+},
+"DimLight": {
+"use_external/enabled": true,
+"use_external/path": "res://Resources/Materials/dim_light.tres"
+},
+"LightMetal": {
+"use_external/enabled": true,
+"use_external/path": "res://Resources/Materials/light_metal.tres"
+},
+"LightPlastic": {
+"use_external/enabled": true,
+"use_external/path": "res://Resources/Materials/white_plastic.tres"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

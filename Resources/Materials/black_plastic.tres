@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://byuob0fc538tp"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/dotted_plastic.gdshader" id="1_qmfi0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_qmfi0")
+shader_parameter/base_color = Vector3(0.1, 0.1, 0.1)
+shader_parameter/uv_scale = 2.0
+shader_parameter/dot_spacing = 0.015
+shader_parameter/dot_radius = 0.005

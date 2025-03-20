@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://c5fge4ytyc0wg"]
+[gd_scene load_steps=12 format=3 uid="uid://c5fge4ytyc0wg"]
 
 [ext_resource type="PackedScene" uid="uid://dvlo1l1hfact3" path="res://Scenes/player.tscn" id="2_h4wyf"]
 [ext_resource type="PackedScene" uid="uid://cql3oaw6eshoh" path="res://Scenes/computer.tscn" id="3_0tpdl"]
 [ext_resource type="VoxelGIData" uid="uid://t8wwvwr7j3eg" path="res://Resources/VoxelGI/level_1.VoxelGI_data.res" id="4_bfadv"]
 [ext_resource type="Texture2D" uid="uid://crah53flcep1s" path="res://Assets/Textures/8k_stars_milky_way.jpg" id="4_out12"]
-[ext_resource type="PackedScene" uid="uid://8a8ar1q5j1a7" path="res://Assets/Models/Ship/ship.glb" id="5_7eqlj"]
+[ext_resource type="PackedScene" uid="uid://8a8ar1q5j1a7" path="res://Assets/Models/ship.glb" id="5_7eqlj"]
+[ext_resource type="PackedScene" uid="uid://brai8xrdfgffh" path="res://Scenes/bed.tscn" id="6_6hmi3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3ibpr"]
 panorama = ExtResource("4_out12")
@@ -17,19 +18,18 @@ background_mode = 2
 sky = SubResource("Sky_qxtg8")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.05
+ambient_light_energy = 0.1
 tonemap_mode = 2
 ssr_max_steps = 512
-ssao_enabled = true
 ssil_enabled = true
 ssil_intensity = 0.2
 sdfgi_use_occlusion = true
 glow_enabled = true
 glow_levels/1 = 1.0
-glow_levels/2 = 0.6
+glow_levels/2 = 1.0
 glow_levels/3 = 0.0
 glow_levels/5 = 0.8
-glow_intensity = 0.16
+glow_intensity = 0.1
 glow_blend_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8y2hk"]
@@ -40,12 +40,6 @@ emission = Color(1, 0.803277, 0.770465, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_pa0mr"]
 material = SubResource("StandardMaterial3D_8y2hk")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oxreu"]
-clearcoat_enabled = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_4ydj7"]
-material = SubResource("StandardMaterial3D_oxreu")
-
 [node name="Level1" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("2_h4wyf")]
@@ -55,7 +49,7 @@ transform = Transform3D(1, 0, 0.000436332, 0, 1, 0, -0.000436332, 0, 1, 7.01808,
 environment = SubResource("Environment_x5ykl")
 
 [node name="Computer" parent="." instance=ExtResource("3_0tpdl")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.83181, 1, 7.16895)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.65026, 1, 7.29863)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.735128, 0, 0.677929, 0, 1, 0, -0.677929, 0, 0.735128, -8.22351, 1.63711, 6.62275)
@@ -67,8 +61,7 @@ subdiv = 3
 size = Vector3(20, 3.5, 27)
 data = ExtResource("4_bfadv")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.59063, 1.2676, -0.309966)
-mesh = SubResource("BoxMesh_4ydj7")
-
 [node name="Ship" parent="." instance=ExtResource("5_7eqlj")]
+
+[node name="Bed" parent="." instance=ExtResource("6_6hmi3")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.66313, 0, -1.33038)

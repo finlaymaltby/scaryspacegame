@@ -13,10 +13,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Globals.WASD_ENABLED and Input.is_action_just_pressed("Jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if Globals.WASD_ENABLED:
 		input_dir += Input.get_vector("Left", "Right", "Forward", "Backward")
@@ -32,12 +28,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _input(event: InputEvent):
-	var mouse := event as InputEventMouseMotion
-	if not mouse:
-		return
-	rotate_y(deg_to_rad(-mouse.relative.x * Globals.MOUSE_SENSITIVITY))
-	$Cam.rotate_x(deg_to_rad(-mouse.relative.y * Globals.MOUSE_SENSITIVITY))
+	if event is InputEventMouseMotion:
+		var mouse: InputEventMouseMotion = event
+		rotate_y(deg_to_rad(-mouse.relative.x * Globals.MOUSE_SENSITIVITY))
+		$Cam.rotate_x(deg_to_rad(-mouse.relative.y * Globals.MOUSE_SENSITIVITY))
 	 
-	$Cam.rotation_degrees.x = clampf($Cam.rotation_degrees.x, -70, 70)
+	if event is InputEventMouseButton:
+		var mouse: InputEventMouseButton = event
+		if mouse.button_index == MOUSE_BUTTON_LEFT and mouse.pressed:
+			$Cam/SpotLight3D.visible = not $Cam/SpotLight3D.visible 
 	
 	

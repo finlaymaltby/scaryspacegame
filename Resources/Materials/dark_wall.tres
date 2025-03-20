@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://biuov3acyjp48"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/wall.gdshader" id="1_n0hc1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_n0hc1")
+shader_parameter/base_color = Vector3(0.3, 0.3, 0.4)
+shader_parameter/uv_scale = 23.5
