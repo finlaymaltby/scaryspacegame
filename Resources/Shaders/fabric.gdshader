@@ -6,7 +6,7 @@ uniform sampler2D noise;
 
 const float min_pattern_spacing = 0.01;
 const float spacing_delta = 1.0; // no. of metres for pattern spacing to double
-
+const float lod_bias = 1000.0;
 varying vec3 vert_pos;
 
 void vertex() {
@@ -18,11 +18,12 @@ void fragment() {
 	SSS_STRENGTH = 0.1;
 	ROUGHNESS = 1.0;
 	METALLIC = 0.0;
-	
-	float dist_to_cam = distance(vert_pos, CAMERA_POSITION_WORLD);
 
+	float my_lod = length(fwidth(UV)) * lod_bias;
+
+	float dist_to_cam = distance(vert_pos, CAMERA_POSITION_WORLD);
 	float pattern_spacing = min_pattern_spacing;
-	
+
 	vec2 uv_pos = UV * uv_scale * vec2(1,-1);
 	vec2 pos = mod(uv_pos, pattern_spacing)/pattern_spacing;
 	if (abs(pos.x - 0.5) <= 0.25) {
@@ -36,4 +37,6 @@ void fragment() {
 		NORMAL_MAP.yz = 0.5 + 1.0 * vec2(pos.y - 0.5, z);
 		ROUGHNESS = 0.4 + 0.6 * (0.5 + d);
 	}
+	NORMAL_MAP = normalize(NORMAL_MAP + my_lod * vec3(1,1,1));
+
 }

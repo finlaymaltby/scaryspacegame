@@ -1,27 +1,29 @@
-[gd_scene load_steps=12 format=3 uid="uid://c5fge4ytyc0wg"]
+[gd_scene load_steps=14 format=3 uid="uid://csv148wevx8cv"]
 
 [ext_resource type="PackedScene" uid="uid://dvlo1l1hfact3" path="res://Scenes/player.tscn" id="2_h4wyf"]
+[ext_resource type="Shader" path="res://Resources/Shaders/stars.gdshader" id="2_xo7e2"]
 [ext_resource type="PackedScene" uid="uid://cql3oaw6eshoh" path="res://Scenes/computer.tscn" id="3_0tpdl"]
 [ext_resource type="VoxelGIData" uid="uid://t8wwvwr7j3eg" path="res://Resources/VoxelGI/level_1.VoxelGI_data.res" id="4_bfadv"]
-[ext_resource type="Texture2D" uid="uid://crah53flcep1s" path="res://Assets/Textures/8k_stars_milky_way.jpg" id="4_out12"]
 [ext_resource type="PackedScene" uid="uid://8a8ar1q5j1a7" path="res://Assets/Models/ship.glb" id="5_7eqlj"]
 [ext_resource type="PackedScene" uid="uid://brai8xrdfgffh" path="res://Scenes/bed.tscn" id="6_6hmi3"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3ibpr"]
-panorama = ExtResource("4_out12")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_487e1"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lpkdx"]
+noise = SubResource("FastNoiseLite_487e1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0t0bd"]
+shader = ExtResource("2_xo7e2")
+shader_parameter/noise = SubResource("NoiseTexture2D_lpkdx")
 
 [sub_resource type="Sky" id="Sky_qxtg8"]
-sky_material = SubResource("PanoramaSkyMaterial_3ibpr")
+sky_material = SubResource("ShaderMaterial_0t0bd")
 
 [sub_resource type="Environment" id="Environment_x5ykl"]
 background_mode = 2
 sky = SubResource("Sky_qxtg8")
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.1
 tonemap_mode = 2
 ssr_max_steps = 512
-ssil_enabled = true
 ssil_intensity = 0.2
 sdfgi_use_occlusion = true
 glow_enabled = true
@@ -43,7 +45,7 @@ material = SubResource("StandardMaterial3D_8y2hk")
 [node name="Level1" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("2_h4wyf")]
-transform = Transform3D(1, 0, 0.000436332, 0, 1, 0, -0.000436332, 0, 1, 7.01808, 1.0534, 5.30577)
+transform = Transform3D(1, 0, 0.000436332, 0, 1, 0, -0.000436332, 0, 1, 0.644072, 1.0534, -4.94807)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_x5ykl")
@@ -57,7 +59,6 @@ mesh = SubResource("BoxMesh_pa0mr")
 
 [node name="VoxelGI" type="VoxelGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.5)
-subdiv = 3
 size = Vector3(20, 3.5, 27)
 data = ExtResource("4_bfadv")
 

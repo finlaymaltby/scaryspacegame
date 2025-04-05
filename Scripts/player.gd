@@ -36,6 +36,7 @@ func _input(event: InputEvent):
 	if event is InputEventMouseButton:
 		var mouse: InputEventMouseButton = event
 		if mouse.button_index == MOUSE_BUTTON_LEFT and mouse.pressed:
-			$Cam/SpotLight3D.visible = not $Cam/SpotLight3D.visible 
+			#$Cam/SpotLight3D.visible = not $Cam/SpotLight3D.visible 
+			pass
 	
 	
