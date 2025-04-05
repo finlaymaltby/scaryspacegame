@@ -6,3 +6,6 @@ TODO:
 	
 	fix computer to use ascii buffer instead
 	fix camera 
+	
+	add computer logs
+	
