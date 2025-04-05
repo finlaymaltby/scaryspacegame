@@ -59,6 +59,7 @@ mesh = SubResource("BoxMesh_pa0mr")
 
 [node name="VoxelGI" type="VoxelGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.5)
+subdiv = 3
 size = Vector3(20, 3.5, 27)
 data = ExtResource("4_bfadv")
 
