@@ -36,5 +36,4 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-gi_mode = 2
 mesh = SubResource("CapsuleMesh_bfrsy")

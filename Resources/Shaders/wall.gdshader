@@ -16,8 +16,10 @@ void fragment() {
 
 	vec2 uv_pos = UV * uv_scale * vec2(1,-1);
 	vec2 pos = mod(uv_pos, sheet_width)/sheet_width;
+	
+	float y_norm = (INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).y;
 	// if is a vertical wall
-	if (abs(dot((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz, vec3(0, 1, 0))) < 0.1) {
+	if (abs(y_norm) < 0.1) {
 		float a = sheet_depth * 16.0;
 		float xp = pos.x * (pos.x - 1.0);
 		float yp = pos.y * (pos.y - 1.0);
@@ -26,11 +28,14 @@ void fragment() {
 		vec3 norm = normalize(vec3(-a*yp*(2.0*pos.x - 1.0), -a*xp*(2.0*pos.y - 1.0), 1));
 		NORMAL_MAP = normalize(0.5 + 0.5 * norm);
 		//ALBEDO = NORMAL_MAP;
-
+	
 		float t = 16.0 * xp * yp;
 		ROUGHNESS = min_rough * t + max_rough * (1.0-t);
-
-
+	}
+	else if (y_norm >= 0.0) {
+		ALBEDO = vec3(0.1, 0.1, 0.1);
+	} else {
+		
 	}
 
 }
